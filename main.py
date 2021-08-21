@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = os.urandom(12).hex()
 
 
 def play_original():
-    filename = 'audio/audio1.wav'
+    filename = 'audio/day1_audio.wav'
     # Extracts the raw audio data & the sampling rate of the file as stored in its RIFF header
     data, fs = sf.read(filename, dtype='float32')
     sd.play(data, fs)
@@ -30,7 +30,7 @@ def play_recording():
     # Extracts the raw audio data, as well as the sampling rate of the file as stored in its RIFF header,
     data, fs = sf.read(filename, dtype='float32')
     sd.play(data, fs)
-    status = sd.wait()  # Wait until file is done playing
+    status = sd.wait()  
 
 
 @app.route("/")
@@ -46,7 +46,7 @@ def page(day):
 @app.route("/play", methods=["GET", "POST"])
 def play():
     if request.method == "POST":
-        flash("Listen carefully")  # TODO 1: Make sure flash message shows up
+        flash("Listen carefully")
         play_original()
         record()
         play_recording()
@@ -66,5 +66,4 @@ def stop():
 if __name__ == "__main__":
     app.run(debug=True)
 
-# TODO 2: Change the icon
-# TODO 3: Change the menu so that the Day # area is all clickable.
+
