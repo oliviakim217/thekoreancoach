@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="helper">
+    {{ list[num] }}
+<span><br>
+    <br>
+        1. Listen and Repeat <br><br>
+        <a href="{{ url_for('play', num=num) }}" class="btn btn-dark btn-lg">LISTEN</a><br><br>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+             <h6>{{ message }}</h6>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <br>
+        2. Compare with the original<br><br>
+        <a href="{{ url_for('compare') }}" class="btn btn-dark btn-lg">COMPARE</a><br><br><br>
+
+        3. Repeat until you're satisfied</span><br>
+
+</div>
+{% endblock %}

@@ -26,8 +26,8 @@
         <h2>The Korean Coach</h2></a>
     </header>
     <ul>
-        {% for number in range(1, 11): %}
-        <li tabindex="0" class="icon-dashboard"><span><a style="text-decoration:none" href="{{ url_for('page', day=number) }}"> Day {{ number }}</a></span></li>
+        {% for item in list: %}
+        <li tabindex="0" class="icon-dashboard"><span><a style="text-decoration:none" href="{{ url_for('practice', num=list.index(item)) }}">{{ item }}</a></span></li>
 
         {% endfor %}
     </ul>
