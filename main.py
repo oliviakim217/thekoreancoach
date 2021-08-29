@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 import sounddevice as sd
 import soundfile as sf
 import os
-
+# Update
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(12).hex()
 
