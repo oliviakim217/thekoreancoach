@@ -2,13 +2,13 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 import sounddevice as sd
 import soundfile as sf
 import os
-# Update
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(12).hex()
 
 
-def play_original():
-    filename = 'audio/audio1.wav'
+def play_original(file_num):
+    filename = f'audio/audio{file_num}.wav'
     # Extracts the raw audio data & the sampling rate of the file as stored in its RIFF header
     data, fs = sf.read(filename, dtype='float32')
     sd.play(data, fs)
@@ -41,6 +41,7 @@ def play_recording():
 
 practice_list = ["안녕하세요 Hi", "안녕히 가세요 Bye", "감사합니다 Thanks", "죄송합니다 Sorry", "영어 하세요? Do you speak English?"]
 
+
 @app.route("/")
 def home():
     return render_template("index.html", list=practice_list)
@@ -56,7 +57,7 @@ def practice():
 def play():
     index_num = request.args.get("num")
     print(index_num)
-    play_original()
+    play_original(index_num)
     sound_effect()
     record()
     flash("Well done! Now click Compare.")
@@ -65,10 +66,11 @@ def play():
 
 @app.route("/compare")
 def compare():
-    day = request.args.get("day")
+    index_num = request.args.get("num")
+    print(index_num)
     play_recording()
-    play_original()
-    return redirect(url_for("page"))
+    play_original(index_num)
+    return redirect(url_for("practice", num=index_num))
 
 
 if __name__ == "__main__":
