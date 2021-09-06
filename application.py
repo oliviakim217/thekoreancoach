@@ -3,8 +3,8 @@ import sounddevice as sd
 import soundfile as sf
 import os
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(12).hex()
+application = Flask(__name__)
+application.config['SECRET_KEY'] = os.urandom(12).hex()
 
 
 def play_original(file_num):
@@ -42,18 +42,18 @@ def play_recording():
 practice_list = ["안녕하세요 Hi", "안녕히 가세요 Bye", "감사합니다 Thanks", "죄송합니다 Sorry", "영어 하세요? Do you speak English?"]
 
 
-@app.route("/")
+@application.route("/")
 def home():
     return render_template("index.html", list=practice_list)
 
 
-@app.route("/practice")
+@application.route("/practice")
 def practice():
     index_num = int(request.args.get("num"))
     return render_template("practice.html", list=practice_list, num=index_num)
 
 
-@app.route("/play")
+@application.route("/play")
 def play():
     index_num = request.args.get("num")
     print(index_num)
@@ -64,7 +64,7 @@ def play():
     return redirect(url_for("practice", num=index_num))
 
 
-@app.route("/compare")
+@application.route("/compare")
 def compare():
     index_num = request.args.get("num")
     print(index_num)
@@ -74,6 +74,6 @@ def compare():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    application.run(debug=True)
 
 
