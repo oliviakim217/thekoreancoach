@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, send_from_directory
 import sounddevice as sd
 import soundfile as sf
 import os
@@ -7,16 +7,16 @@ application = Flask(__name__)
 application.config['SECRET_KEY'] = os.urandom(12).hex()
 
 
-def play_original(file_num):
-    filename = f'audio/audio{file_num}.wav'
-    # Extracts the raw audio data & the sampling rate of the file as stored in its RIFF header
-    data, fs = sf.read(filename, dtype='float32')
-    sd.play(data, fs)
-    sd.wait()
+# def play_original(file_num):
+#     filename = f'audio/audio{file_num}.wav'
+#     # Extracts the raw audio data & the sampling rate of the file as stored in its RIFF header
+#     data, fs = sf.read(filename, dtype='float32')
+#     sd.play(data, fs)
+#     sd.wait()
 
 
 def sound_effect():
-    filename = 'audio/sound_effect.wav'
+    filename = 'static/assets/audio/sound_effect.wav'
     data, fs = sf.read(filename, dtype='float32')
     sd.play(data, fs)
     sd.wait()
@@ -27,12 +27,12 @@ def record():
     duration = 5
     my_recording = sd.rec(int(duration * sr), samplerate=sr, channels=2)
     sd.wait()
-    sf.write("audio/user_record.wav", my_recording, sr)
+    sf.write("static/assets/audio/user_record.wav", my_recording, sr)
     print("Done recording")
 
 
 def play_recording():
-    filename = 'audio/user_record.wav'
+    filename = 'static/assets/audio/user_record.wav'
     # Extracts the raw audio data, as well as the sampling rate of the file as stored in its RIFF header,
     data, fs = sf.read(filename, dtype='float32')
     sd.play(data, fs)
@@ -62,6 +62,11 @@ def play():
     record()
     flash("Well done! Now click Compare.")
     return redirect(url_for("practice", num=index_num))
+
+
+@application.route('/audio/<path:filename>')
+def download_file(filename):
+    return send_from_directory('static/assets/audio/', filename)
 
 
 @application.route("/compare")

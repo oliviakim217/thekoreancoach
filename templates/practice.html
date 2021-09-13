@@ -5,7 +5,7 @@
 <span><br>
     <br>
         1. Listen and Repeat <br><br>
-        <a href="{{ url_for('play', num=num) }}" class="btn btn-dark btn-lg">LISTEN</a><br><br>
+        <button class="btn btn-dark btn-lg" onclick="play('audio/audio{{ num }}.wav')">Button</button>
         {% with messages = get_flashed_messages() %}
           {% if messages %}
             {% for message in messages %}
@@ -20,4 +20,12 @@
         3. Repeat until you're satisfied</span><br>
 
 </div>
+<script>
+function play(audioFile) {
+  var audio = new Audio(audioFile);
+  audio.play(audioFile);
+
+}
+</script>
+
 {% endblock %}
