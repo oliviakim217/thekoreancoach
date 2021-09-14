@@ -4,12 +4,8 @@
     {{ list[num] }}
 <span><br>
     <br>
-
-
-
-
-        1. Listen and Repeat <br><br>
-            <button id="action" onclick="handleAction()" class="btn btn-dark btn-lg" >Start recording...</button>
+        1. Listen <br><br>
+            <button onclick="play('../static/assets/audio/audio{{ num }}.wav')" class="btn btn-dark btn-lg" >Listen</button>
 
         {% with messages = get_flashed_messages() %}
           {% if messages %}
@@ -19,12 +15,18 @@
           {% endif %}
         {% endwith %}
         <br><br>
-        2. Compare with the original<br><br>
-        <a href="{{ url_for('compare', num=num) }}" class="btn btn-dark btn-lg">COMPARE</a><br><br><br>
-
-        3. Repeat until you're satisfied</span><br>
+        2. Record<br><br>
+        <button id="action" onclick="handleAction()" class="btn btn-dark btn-lg" >Start recording...</button>
+<!--        <a href="{{ url_for('compare', num=num) }}" class="btn btn-dark btn-lg">COMPARE</a><br><br><br>-->
+        <br><br>
+        3. Listen Again</span><br>
 
 </div>
 <script src="/static/assets/js/index.js"></script>
-
+<script>
+function play(audio_file) {
+  var audio = new Audio(audio_file);
+  audio.play();
+}
+</script>
 {% endblock %}
