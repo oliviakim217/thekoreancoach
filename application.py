@@ -19,15 +19,15 @@ def practice():
     return render_template("practice.html", list=practice_list, num=index_num)
 
 
-@application.route("/play")
-def play():
-    index_num = request.args.get("num")
-    print(index_num)
-    # play_original(index_num)
-    # sound_effect()
-    # record()
-    flash("Well done! Now click Compare.")
-    return redirect(url_for("practice", num=index_num))
+# @application.route("/play")
+# def play():
+#     index_num = request.args.get("num")
+#     print(index_num)
+#     # play_original(index_num)
+#     # sound_effect()
+#     # record()
+#     flash("Well done! Now click Compare.")
+#     return redirect(url_for("practice", num=index_num))
 
 
 @application.route('/audio/<path:filename>')
@@ -35,16 +35,16 @@ def download_file(filename):
     return send_from_directory('static/assets/audio/', filename)
 
 
-@application.route("/compare")
-def compare():
-    index_num = request.args.get("num")
-    print(index_num)
-    # play_recording()
-    # play_original(index_num)
-    return redirect(url_for("practice", num=index_num))
+# @application.route("/compare")
+# def compare():
+#     index_num = request.args.get("num")
+#     print(index_num)
+#     # play_recording()
+#     # play_original(index_num)
+#     return redirect(url_for("practice", num=index_num))
 
 
 if __name__ == "__main__":
-    application.run()
+    application.run(port=8080)
 
 
